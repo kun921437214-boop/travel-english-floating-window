@@ -1,0 +1,7 @@
+node_modules/
+release/
+dist/*
+!dist/.gitkeep
+.vite/
+npm-debug.log*
+.DS_Store
