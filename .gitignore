@@ -1,7 +1,79 @@
+# Dependencies
 node_modules/
+mobile-web/node_modules/
+
+# Build output
+dist/
+build/
 release/
-dist/*
-!dist/.gitkeep
+out/
+mobile-web/dist/
+mobile-web/build/
 .vite/
-npm-debug.log*
+mobile-web/.vite/
+
+# Local env and secrets
+.env
+.env.*
+!.env.example
+!mobile-web/.env.example
+*.pem
+*.key
+*.p12
+*.mobileprovision
+
+# OS / editor
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Logs and caches
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.cache/
+.wrangler/
+
+# Local launchers and generated desktop shortcuts
+*.command
+*.app/
+desktop-launcher/
+mobile-web-url-qr.png
+
+# Private or full source data
+data/*.xlsx
+data/*.xls
+data/*.csv
+src/data/travel-english.json
+mobile-web/src/data/travel-english.json
+
+# Generated archives and exports
+*.zip
+*.tar
+*.tar.gz
+exports/
+export/
+output/
+tmp/
+temp/
+tmp-*.mjs
+
+# Large media / raw assets / private records
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.m4v
+*.wav
+*.aiff
+*.psd
+*.ai
+真实数据/
+原始素材/
+报名表/
+身份证/
+手机号/

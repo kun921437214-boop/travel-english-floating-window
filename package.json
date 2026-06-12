@@ -2,7 +2,7 @@
   "name": "travel-english-floating-window",
   "version": "1.0.0",
   "private": true,
-  "description": "澳新旅行英语悬浮卡片：Mac 桌面悬浮窗英语学习工具",
+  "description": "哑巴说话：Mac 桌面悬浮窗英语学习工具",
   "main": "electron/main.js",
   "author": "Codex",
   "license": "MIT",
@@ -14,7 +14,8 @@
     "convert:data": "node scripts/convert-xlsx-to-json.mjs",
     "build": "vite build",
     "dist:mac": "npm run build && electron-builder --mac",
-    "lint": "node --check electron/main.js && node --check electron/preload.js && node --check scripts/convert-xlsx-to-json.mjs && node --check scripts/dev.mjs && node --check scripts/run-local.mjs && node --check vite.config.mjs"
+    "shortcut:desktop": "node scripts/update-desktop-shortcut.mjs",
+    "lint": "node --check electron/main.js && node --check electron/preload.js && node --check scripts/convert-xlsx-to-json.mjs && node --check scripts/dev.mjs && node --check scripts/run-local.mjs && node --check scripts/update-desktop-shortcut.mjs && node --check vite.config.mjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
@@ -29,7 +30,8 @@
   },
   "build": {
     "appId": "com.local.travelenglishfloatingwindow",
-    "productName": "澳新旅行英语悬浮卡片",
+    "productName": "哑巴说话",
+    "icon": "assets/yaba-icon.icns",
     "directories": {
       "output": "release"
     },
@@ -49,6 +51,7 @@
     ],
     "mac": {
       "category": "public.app-category.education",
+      "icon": "assets/yaba-icon.icns",
       "target": [
         "dmg",
         "zip"

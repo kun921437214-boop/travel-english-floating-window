@@ -1,0 +1,35 @@
+[
+  {
+    "id": "sample_sentence_001",
+    "type": "sentence",
+    "category": "万能沟通",
+    "english": "Could you help me, please?",
+    "chinese": "可以帮我一下吗？",
+    "priority": "A 必背",
+    "note": "开口求助万能句。",
+    "reviewStatus": "未学",
+    "sourceSheet": "sample"
+  },
+  {
+    "id": "sample_sentence_002",
+    "type": "sentence",
+    "category": "机场与航班",
+    "english": "Where is the security check?",
+    "chinese": "安检在哪里？",
+    "priority": "B 常用",
+    "note": "机场找路时使用。",
+    "reviewStatus": "学习中",
+    "sourceSheet": "sample"
+  },
+  {
+    "id": "sample_word_001",
+    "type": "word",
+    "category": "租车",
+    "english": "insurance",
+    "chinese": "保险",
+    "priority": "A 必背",
+    "note": "租车柜台高频词。",
+    "reviewStatus": "已掌握",
+    "sourceSheet": "sample"
+  }
+]

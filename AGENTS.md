@@ -1,57 +1,120 @@
 # AGENTS.md
 
-## 项目目标
+Guidance for Codex and future AI agents working on this repository.
 
-这是一个 Mac 桌面悬浮窗英语学习工具，名字叫“澳新旅行英语悬浮卡片”。目标是读取澳大利亚、新西兰旅行英语 Excel 数据，并在 Electron 小窗口中展示句子和单词，支持翻页、随机、搜索、筛选、朗读、隐藏中文、迷你模式、学习状态和窗口置顶。
+## Project Goal
 
-## 技术栈
+Maintain a personal Australian/New Zealand travel-English learning tool:
 
-- Electron
-- React
-- Vite
-- xlsx
-- electron-builder
+- Desktop Electron floating card for Mac.
+- Mobile web PWA for phone learning and optional Supabase sync.
 
-## 常用命令
+Preserve the current desktop workflow unless the user explicitly asks to change it.
+
+## Directory Map
+
+- `electron/`: Electron main/preload process.
+- `src/`: Desktop React app.
+- `scripts/`: Data conversion, local runner, shortcut helpers.
+- `data/`: Local-only real Excel workbook. Do not commit real files.
+- `mobile-web/`: Independent mobile PWA.
+- `docs/`: Handoff, test, data, and deployment documentation.
+- `sample_data/`: Sanitized samples safe for GitHub.
+
+## Tech Stack
+
+- Desktop: Electron, React, Vite, xlsx, electron-builder.
+- Mobile: React, Vite, Supabase JS, vite-plugin-pwa.
+- Data: Excel workbook converted to JSON.
+
+## Commands
+
+Desktop:
 
 ```bash
 npm install
-npm start
-npm run app
-npm run setup
 npm run convert:data
 npm run dev
+npm start
+npm run lint
 npm run build
 npm run dist:mac
-npm run lint
 ```
 
-## 数据文件说明
+Mobile:
 
-- 原始 Excel 文件路径：`data/澳新旅行英语_340句_915词.xlsx`
-- 转换后 JSON 路径：`src/data/travel-english.json`
-- 如果 Excel 文件不存在，`npm run convert:data` 应该生成空 JSON，并输出提示，不要让项目无法启动。
-- 转换脚本需要兼容不同表头，不能因为单个表头不匹配就崩溃。
+```bash
+cd mobile-web
+npm install
+npm run dev
+npm run build
+```
 
-## 重要限制
+## Files To Read Before Code Changes
 
-- 不要联网调用 TTS。
-- 朗读必须使用浏览器或系统内置 `speechSynthesis`。
-- 不要删除 `data/澳新旅行英语_340句_915词.xlsx`。
-- 不要在渲染进程中直接使用 Node.js API。
-- Electron 需要保持 `nodeIntegration: false` 和 `contextIsolation: true`。
+- `README.md`
+- `docs/PROJECT_HANDOFF.md`
+- `docs/DATA_RULES.md`
+- `docs/DEPLOYMENT.md`
+- Relevant source files in `src/`, `electron/`, or `mobile-web/src/`.
 
-## 修改后检查
+## Key Business Rules
 
-修改代码后优先运行：
+- Do not change the generated item data shape casually.
+- Preserve `id`, `type`, `category`, `english`, `chinese`, `priority`, `note`, `reviewStatus`, and `sourceSheet`.
+- Review statuses are `未学`, `学习中`, `已掌握`.
+- Priorities are usually `A 必背`, `B 常用`, `C 备用`.
+- Desktop last learning position must survive app restart.
+- Random review should prefer unlearned / learning / high-priority content but never fully hide mastered content.
+
+## Data Rules
+
+- Do not commit `data/*.xlsx`.
+- Do not commit full generated `src/data/travel-english.json` or `mobile-web/src/data/travel-english.json`.
+- Only sanitized examples belong in `sample_data/`.
+- Do not commit private phone numbers, IDs, real registration forms, API keys, or Supabase service-role keys.
+
+## Validation After Changes
+
+Run at least:
 
 ```bash
 npm run lint
 npm run build
 ```
 
-如果修改了 Excel 转换逻辑，还要运行：
+When mobile web is touched:
 
 ```bash
-npm run convert:data
+cd mobile-web
+npm run build
 ```
+
+For UI changes, manually check:
+
+- Normal sentence.
+- Long sentence.
+- Word item.
+- Empty data state.
+- Search and filter panels.
+- Mini/focus mode.
+- Last-position restore.
+
+## Prohibited
+
+- Do not enable Electron `nodeIntegration`.
+- Do not disable `contextIsolation`.
+- Do not add online TTS APIs; speech uses browser `speechSynthesis`.
+- Do not overwrite user local learning progress.
+- Do not upload real source data or generated full data to GitHub.
+- Do not commit local desktop shortcut `.app` or `.command` files.
+- Do not put Supabase `service_role` keys in frontend code.
+
+## Completion Standard
+
+A change is complete when:
+
+- Requested behavior works.
+- Existing navigation, speech, filters, status, shortcuts, and localStorage remain intact.
+- Builds pass.
+- Git status is clean except for intentionally ignored local data.
